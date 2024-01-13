@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using ToDoList.Database;
 
 namespace ToDoList
 {
@@ -11,6 +13,9 @@ namespace ToDoList
 
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
+			builder.Services.AddDbContext<ToDoListContext>(option =>
+				option.UseNpgsql(
+					builder.Configuration.GetConnectionString("DefaultConnection")));
 
 			var app = builder.Build();
 
@@ -21,6 +26,8 @@ namespace ToDoList
 			}
 
 			app.UseAuthorization();
+
+			app.MapGet("/", (ToDoListContext context) => context.ToDos.ToList());
 
 			app.Run();
 		}
