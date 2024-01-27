@@ -14,5 +14,11 @@
 
 		/// <summary>Выполнено ли задание.</summary>
 		bool IsDone { get; }
+
+		/// <summary>Id пользователя.</summary>
+		long UserId { get; }
+
+		/// <summary>Пользователь.</summary>
+		User User { get; }
 	}
 }
